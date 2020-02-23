@@ -8,7 +8,6 @@
     <StartupObject />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.1.0</Version>
-    <PackageIcon>monkey.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
 
