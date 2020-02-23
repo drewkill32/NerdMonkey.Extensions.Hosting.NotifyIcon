@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 namespace NerdMonkey.Extensions.Hosting.Configuration
 {
-    public class TrayApplicationContext : ApplicationContext
+    public class HostedApplicationContext : ApplicationContext
     {
         private readonly IEnumerable<IHost> _hosts;
         private readonly INotifyIcon _notifyIcon;
 
-        public TrayApplicationContext(IEnumerable<IHost> hosts)
+        public HostedApplicationContext(IEnumerable<IHost> hosts)
         {
             _hosts = hosts;
             _notifyIcon = IconBuilder.Instance.Build();
@@ -21,6 +21,7 @@ namespace NerdMonkey.Extensions.Hosting.Configuration
 
         private void NotifyIcon_Exit(object sender, EventArgs e)
         {
+            _notifyIcon.Hide();
             Application.Exit();
         }
 

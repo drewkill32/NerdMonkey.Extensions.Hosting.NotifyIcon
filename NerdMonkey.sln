@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdMonkey.Demo", "src\Nerd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdMonkey.Extensions.Hosting.Configuration", "src\NerdMonkey.Extensions.Hosting.Configuration\NerdMonkey.Extensions.Hosting.Configuration.csproj", "{8FB31275-A7A1-4777-8E13-B365A1857653}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdMonkey.Api", "src\NerdMonkey.Api\NerdMonkey.Api.csproj", "{B50B3D0D-0506-4B3F-8E3A-23944B23BCFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdMonkey.Api", "src\NerdMonkey.Api\NerdMonkey.Api.csproj", "{B50B3D0D-0506-4B3F-8E3A-23944B23BCFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdMonkey.Model", "src\NerdMonkey.Model\NerdMonkey.Model.csproj", "{57DBC958-39BC-4324-A183-35B110611BA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B50B3D0D-0506-4B3F-8E3A-23944B23BCFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B50B3D0D-0506-4B3F-8E3A-23944B23BCFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B50B3D0D-0506-4B3F-8E3A-23944B23BCFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57DBC958-39BC-4324-A183-35B110611BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57DBC958-39BC-4324-A183-35B110611BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57DBC958-39BC-4324-A183-35B110611BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57DBC958-39BC-4324-A183-35B110611BA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

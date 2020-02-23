@@ -28,7 +28,11 @@ namespace NerdMonkey.Demo
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            //services.AddSingleton<WeatherForecastService>();
+            services.AddHttpClient<WeatherForecastService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5100");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

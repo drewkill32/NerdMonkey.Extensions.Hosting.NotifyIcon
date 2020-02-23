@@ -1,6 +1,6 @@
 using System;
 
-namespace NerdMonkey.Api
+namespace NerdMonkey.Model
 {
     public class WeatherForecast
     {

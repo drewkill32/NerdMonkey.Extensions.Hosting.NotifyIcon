@@ -19,7 +19,7 @@ namespace NerdMonkey.App
             Application.SetCompatibleTextRenderingDefault(false);
             var clientHost = Demo.Program.CreateHostBuilder(args).Build();
             var apiHost = Api.Program.CreateHostBuilder(args).Build();
-            Application.Run(new TrayApplicationContext(new []{ clientHost, apiHost }));
+            Application.Run(new HostedApplicationContext(new []{ clientHost, apiHost }));
         }
 
     }
