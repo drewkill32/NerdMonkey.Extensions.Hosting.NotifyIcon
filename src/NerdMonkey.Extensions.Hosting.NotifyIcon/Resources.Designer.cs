@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NerdMonkey.Extensions.Hosting.Configuration {
+namespace NerdMonkey.Extensions.Hosting.NotifyIcon {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NerdMonkey.Extensions.Hosting.Configuration {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NerdMonkey.Extensions.Hosting.Configuration.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NerdMonkey.Extensions.Hosting.NotifyIcon.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -67,16 +67,6 @@ namespace NerdMonkey.Extensions.Hosting.Configuration {
             get {
                 object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AppImage {
-            get {
-                object obj = ResourceManager.GetObject("AppImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

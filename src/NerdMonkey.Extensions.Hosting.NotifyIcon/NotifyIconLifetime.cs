@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace NerdMonkey.Extensions.Hosting.Configuration
+namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
     public class NotifyIconLifetime:IHostLifetime,IDisposable
     {
@@ -55,12 +54,11 @@ namespace NerdMonkey.Extensions.Hosting.Configuration
             // On Linux if the shutdown is triggered by SIGTERM then that's signaled with the 143 exit code.
             // Suppress that since we shut down gracefully. https://github.com/aspnet/AspNetCore/issues/6526
             System.Environment.ExitCode = 0;
-            Application.Exit();
         }
 
         private void OnApplicationStarted()
         {
-            Logger.LogInformation("Application started. Press Ctrl+C to shut down.");
+            Logger.LogInformation("Application started. Use Exit menu to shut down");
             Logger.LogInformation("Hosting environment: {envName}", Environment.EnvironmentName);
             Logger.LogInformation("Content root path: {contentRoot}", Environment.ContentRootPath);
         }

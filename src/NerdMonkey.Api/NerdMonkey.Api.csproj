@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NerdMonkey.Extensions.Hosting.Configuration\NerdMonkey.Extensions.Hosting.Configuration.csproj" />
+    <ProjectReference Include="..\NerdMonkey.Extensions.Hosting.NotifyIcon\NerdMonkey.Extensions.Hosting.NotifyIcon.csproj" />
     <ProjectReference Include="..\NerdMonkey.Model\NerdMonkey.Model.csproj" />
   </ItemGroup>
 

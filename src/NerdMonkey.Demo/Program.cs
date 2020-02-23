@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +28,8 @@ namespace NerdMonkey.Demo
                 }).UseNotifyIcon(configure =>
                 {
                     configure.OpenOnStartup = true;
+                    configure.Icon = new Icon(@"wwwroot\favicon.ico");
+                    configure.Image = configure.Icon.ToBitmap();
                     configure.StartUpMessage = "Hello World";
                 });
     }

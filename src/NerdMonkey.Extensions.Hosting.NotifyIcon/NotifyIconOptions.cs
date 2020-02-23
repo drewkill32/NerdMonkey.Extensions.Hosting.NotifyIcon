@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 
-namespace NerdMonkey.Extensions.Hosting.Configuration
+namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
     public class NotifyIconOptions
     {
@@ -76,7 +76,7 @@ namespace NerdMonkey.Extensions.Hosting.Configuration
             OpenOnStartup = true;
             DisplayStartupMessage = true;
             Icon = Resources.AppIcon;
-            Image = Resources.AppImage;
+            Image = Icon.ToBitmap();
             Url = "http://localhost:5000";
         }
     }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NerdMonkey.Extensions.Hosting.Configuration
+namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
     public static class ApplicationHelper
     {

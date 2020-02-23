@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Hosting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Extensions.Hosting;
 
-namespace NerdMonkey.Extensions.Hosting.Configuration
+namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
     public class HostedApplicationContext : ApplicationContext
     {

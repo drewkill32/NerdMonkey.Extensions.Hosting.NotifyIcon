@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using NerdMonkey.Extensions.Hosting.Configuration;
+using NerdMonkey.Extensions.Hosting.NotifyIcon;
 
 namespace NerdMonkey.App
 {

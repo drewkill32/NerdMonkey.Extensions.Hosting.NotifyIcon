@@ -16,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NerdMonkey.Api\NerdMonkey.Api.csproj" />
     <ProjectReference Include="..\NerdMonkey.Demo\NerdMonkey.Demo.csproj" />
-    <ProjectReference Include="..\NerdMonkey.Extensions.Hosting.Configuration\NerdMonkey.Extensions.Hosting.Configuration.csproj" />
+    <ProjectReference Include="..\NerdMonkey.Extensions.Hosting.NotifyIcon\NerdMonkey.Extensions.Hosting.NotifyIcon.csproj" />
   </ItemGroup>
 
   <ItemGroup>

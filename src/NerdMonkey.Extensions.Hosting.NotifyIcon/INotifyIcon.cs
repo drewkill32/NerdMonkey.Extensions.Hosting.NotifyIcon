@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NerdMonkey.Extensions.Hosting.Configuration
+namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
     public interface INotifyIcon: IDisposable
     {

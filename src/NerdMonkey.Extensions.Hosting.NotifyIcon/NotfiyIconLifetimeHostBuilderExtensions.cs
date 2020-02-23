@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using NerdMonkey.Extensions.Hosting.Configuration;
+using NerdMonkey.Extensions.Hosting;
+using NerdMonkey.Extensions.Hosting.NotifyIcon;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.Hosting

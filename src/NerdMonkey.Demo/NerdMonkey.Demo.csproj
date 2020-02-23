@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NerdMonkey.Extensions.Hosting.Configuration\NerdMonkey.Extensions.Hosting.Configuration.csproj" />
+    <Content Remove="wwwroot\icon-attribute.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NerdMonkey.Extensions.Hosting.NotifyIcon\NerdMonkey.Extensions.Hosting.NotifyIcon.csproj" />
     <ProjectReference Include="..\NerdMonkey.Model\NerdMonkey.Model.csproj" />
   </ItemGroup>
 
@@ -44,8 +48,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\favicon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\icon-attribute.html" />
   </ItemGroup>
 
 </Project>

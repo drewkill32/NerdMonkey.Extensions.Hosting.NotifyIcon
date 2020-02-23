@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace NerdMonkey.Extensions.Hosting.Configuration
+namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
     public class HostNotifyIcon: INotifyIcon
     {
         private readonly NotifyIconOptions _options;
-        private readonly NotifyIcon _notifyIcon;
+        private readonly System.Windows.Forms.NotifyIcon _notifyIcon;
         private ToolStripMenuItem _exitMenuItem;
         private ToolStripMenuItem _openUrlMenuItem;
         private bool _isShown;
-        private object _mutex = new object();
+        private readonly object _mutex = new object();
         public event EventHandler Exit;
 
 
         public HostNotifyIcon(NotifyIconOptions options)
         {
             _options = options;
-            _notifyIcon = new NotifyIcon()
+            _notifyIcon = new System.Windows.Forms.NotifyIcon()
             {
                 Icon = _options.Icon,
                 BalloonTipTitle = _options.Title,
@@ -27,6 +28,7 @@ namespace NerdMonkey.Extensions.Hosting.Configuration
                 Visible = true
             };
             BuildMenu();
+            _notifyIcon.DoubleClick += NotifyIconOnDoubleClick;
         }
 
         private void BuildMenu()
@@ -42,6 +44,13 @@ namespace NerdMonkey.Extensions.Hosting.Configuration
             _notifyIcon.ContextMenuStrip.Items.Add(_exitMenuItem);
         }
 
+        private void NotifyIconOnDoubleClick(object sender, EventArgs e)
+        {
+            MethodInfo mi = typeof(System.Windows.Forms.NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
+            mi.Invoke(_notifyIcon, null);
+        }
+
+
         private void ExitOnClick(object sender, EventArgs e)
         {
             Hide();
@@ -56,6 +65,8 @@ namespace NerdMonkey.Extensions.Hosting.Configuration
 
         private static void OpenUrl(string url)
         {
+
+            //has to be invoked this way in dotnet core https://github.com/dotnet/runtime/issues/17938
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 ProcessStartInfo psi = new ProcessStartInfo
@@ -79,6 +90,7 @@ namespace NerdMonkey.Extensions.Hosting.Configuration
         {
             _exitMenuItem.Click -= ExitOnClick;
             _openUrlMenuItem.Click -= OpenUrlOnClick;
+            _notifyIcon.DoubleClick -= NotifyIconOnDoubleClick;
             _notifyIcon?.Dispose();
         }
 
