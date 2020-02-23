@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Threading;
+﻿using System;
 using System.Windows.Forms;
+using NerdMonkey.Extensions.Hosting.Configuration;
 
 namespace NerdMonkey.App
 {
@@ -19,43 +17,10 @@ namespace NerdMonkey.App
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var host = Demo.Program.CreateHostBuilder(args).UseNotifyIcon();
-            Application.Run(new TrayApplicationContext(host.Build()));
-        }
-    }
-
-    public class TrayApplicationContext : ApplicationContext
-    {
-        private readonly IHost _host;
-
-        private readonly CancellationTokenRegistration _applicationStoppingRegistration;
-
-        public TrayApplicationContext(IHost host)
-        {
-            _host = host;
-            var applicationLifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
-            _applicationStoppingRegistration = applicationLifetime.ApplicationStopping.Register(Application.Exit);
-
-            new Thread(Run).Start(); // Otherwise this would block.
+            var clientHost = Demo.Program.CreateHostBuilder(args).Build();
+            var apiHost = Api.Program.CreateHostBuilder(args).Build();
+            Application.Run(new TrayApplicationContext(new []{ clientHost, apiHost }));
         }
 
-        private void Run()
-        {
-            try
-            {
-                _host.Run(); // this is blocking
-            }
-            catch (OperationCanceledException)
-            {
-                //Ignore
-            }
-
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _applicationStoppingRegistration.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }

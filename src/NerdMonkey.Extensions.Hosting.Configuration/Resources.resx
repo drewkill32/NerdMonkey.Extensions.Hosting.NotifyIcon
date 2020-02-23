@@ -130,4 +130,10 @@
   <data name="HostNotifyIcon_Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="NotifyIconOptions_Open" xml:space="preserve">
+    <value>Open {0}</value>
+  </data>
+  <data name="NotifyIconOptions_Starting" xml:space="preserve">
+    <value>Starting {0}</value>
+  </data>
 </root>

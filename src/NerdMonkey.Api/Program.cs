@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace NerdMonkey.Demo
+namespace NerdMonkey.Api
 {
     public class Program
     {
@@ -22,11 +20,9 @@ namespace NerdMonkey.Demo
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("http://localhost:5100");
                     webBuilder.UseStartup<Startup>();
-                }).UseNotifyIcon(configure =>
-                {
-                    configure.OpenOnStartup = true;
-                    configure.StartUpMessage = "Hello World";
-                });
+                })
+                .UseNotifyIcon();
     }
 }

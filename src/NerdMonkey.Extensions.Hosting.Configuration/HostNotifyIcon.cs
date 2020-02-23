@@ -3,22 +3,21 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace NerdMonkey.App
+namespace NerdMonkey.Extensions.Hosting.Configuration
 {
-    public class HostNotifyIcon: IDisposable
+    public class HostNotifyIcon: INotifyIcon
     {
         private readonly NotifyIconOptions _options;
         private readonly NotifyIcon _notifyIcon;
         private ToolStripMenuItem _exitMenuItem;
         private ToolStripMenuItem _openUrlMenuItem;
-
+        private bool _isShown;
+        private object _mutex = new object();
         public event EventHandler Exit;
+
 
         public HostNotifyIcon(NotifyIconOptions options)
         {
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             _options = options;
             _notifyIcon = new NotifyIcon()
             {
@@ -86,23 +85,44 @@ namespace NerdMonkey.App
 
         public void Hide()
         {
+
             _notifyIcon.Visible = false;
+            lock (_mutex)
+            {
+                _isShown = false;
+            }
         }
 
         public void Show()
         {
-            _notifyIcon.Visible = true;
 
-            if (_options.DisplayStartupMessage)
+            if (_isShown)
             {
-                _notifyIcon.BalloonTipText = _options.StartUpMessage;
-                _notifyIcon.ShowBalloonTip(1000);
+                return;
             }
 
-            if (_options.OpenOnStartup)
+            lock (_mutex)
             {
-                OpenUrl(_options.Url);
+                if (_isShown)
+                {
+                    return;
+                }
+                _notifyIcon.Visible = true;
+
+                if (_options.DisplayStartupMessage)
+                {
+                    _notifyIcon.BalloonTipText = _options.StartUpMessage;
+                    _notifyIcon.ShowBalloonTip(1000);
+                }
+
+                if (_options.OpenOnStartup)
+                {
+                    OpenUrl(_options.Url);
+                }
+
+                _isShown = true;
             }
+
         }
     }
 }

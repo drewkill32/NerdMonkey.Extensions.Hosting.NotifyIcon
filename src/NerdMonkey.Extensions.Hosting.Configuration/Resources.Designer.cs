@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NerdMonkey.App {
+namespace NerdMonkey.Extensions.Hosting.Configuration {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NerdMonkey.App {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NerdMonkey.App.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NerdMonkey.Extensions.Hosting.Configuration.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -96,6 +96,24 @@ namespace NerdMonkey.App {
         internal static string HostNotifyIcon_Exit {
             get {
                 return ResourceManager.GetString("HostNotifyIcon_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open {0}.
+        /// </summary>
+        internal static string NotifyIconOptions_Open {
+            get {
+                return ResourceManager.GetString("NotifyIconOptions_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting {0}.
+        /// </summary>
+        internal static string NotifyIconOptions_Starting {
+            get {
+                return ResourceManager.GetString("NotifyIconOptions_Starting", resourceCulture);
             }
         }
     }

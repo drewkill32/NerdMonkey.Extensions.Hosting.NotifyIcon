@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 
-namespace NerdMonkey.App
+namespace NerdMonkey.Extensions.Hosting.Configuration
 {
     public class NotifyIconOptions
     {

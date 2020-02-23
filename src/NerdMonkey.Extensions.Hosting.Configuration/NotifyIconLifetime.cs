@@ -1,32 +1,26 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
-namespace NerdMonkey.App
+namespace NerdMonkey.Extensions.Hosting.Configuration
 {
     public class NotifyIconLifetime:IHostLifetime,IDisposable
     {
         private CancellationTokenRegistration _applicationStartedRegistration;
         private CancellationTokenRegistration _applicationStoppingRegistration;
         private readonly ManualResetEvent _shutdownBlock = new ManualResetEvent(false);
-        private readonly HostNotifyIcon _hostNotifyIcon;
+        private readonly INotifyIcon _hostNotifyIcon;
 
-        public NotifyIconLifetime(IHostEnvironment environment, IHostApplicationLifetime applicationLifetime, ILoggerFactory loggerFactory, IOptions<NotifyIconOptions> options)
+        public NotifyIconLifetime(IHostEnvironment environment, IHostApplicationLifetime applicationLifetime, ILoggerFactory loggerFactory, INotifyIcon notifyIcon)
         {
             Environment = environment ?? throw new ArgumentNullException(nameof(environment));
             ApplicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
             Logger = loggerFactory.CreateLogger("Microsoft.Hosting.Lifetime");
-            var optionsValue = options.Value;
-            if (string.IsNullOrWhiteSpace(optionsValue.Title))
-            {
-                options.Value.Title = Process.GetCurrentProcess().ProcessName;
-            }
-            _hostNotifyIcon = new HostNotifyIcon(optionsValue);
+
+            _hostNotifyIcon = notifyIcon;
         }
         public Task WaitForStartAsync(CancellationToken cancellationToken)
         {
@@ -61,6 +55,7 @@ namespace NerdMonkey.App
             // On Linux if the shutdown is triggered by SIGTERM then that's signaled with the 143 exit code.
             // Suppress that since we shut down gracefully. https://github.com/aspnet/AspNetCore/issues/6526
             System.Environment.ExitCode = 0;
+            Application.Exit();
         }
 
         private void OnApplicationStarted()
