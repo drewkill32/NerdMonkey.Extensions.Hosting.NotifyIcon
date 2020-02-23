@@ -23,6 +23,6 @@ namespace NerdMonkey.Demo
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).UseNotifyIcon();
+                });
     }
 }
