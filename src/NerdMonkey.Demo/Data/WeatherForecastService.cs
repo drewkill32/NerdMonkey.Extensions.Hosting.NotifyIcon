@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using NerdMonkey.Model;
 using System.Text.Json;
+using NerdMonkey.Demo.Extensions;
 
 namespace NerdMonkey.Demo.Data
 {
@@ -18,15 +19,11 @@ namespace NerdMonkey.Demo.Data
             _httpClient = httpClient;
         }
 
-        public async Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
+        public Task<IEnumerable<WeatherForecast>> GetForecastAsync()
         {
 
-            var response = await _httpClient.GetAsync("weatherforecast");
-            var result = await response.Content.ReadAsStringAsync();
-            var jsonOptions = new JsonSerializerOptions();
-            jsonOptions.PropertyNameCaseInsensitive = true;
-            var weather =  JsonSerializer.Deserialize<IEnumerable<WeatherForecast>>(result,jsonOptions) .ToArray();
-            return weather;
+             return _httpClient.GetJsonAsync<IEnumerable<WeatherForecast>>("weatherforecast");
+
         }
     }
 }

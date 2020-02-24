@@ -7,7 +7,7 @@
     <ApplicationIcon />
     <StartupObject />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <PackageIconUrl />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/drewkill32/NerdMonkey.Extensions.Hosting.NotifyIcon</RepositoryUrl>

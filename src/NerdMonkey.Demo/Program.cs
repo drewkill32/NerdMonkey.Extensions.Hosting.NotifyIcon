@@ -30,7 +30,6 @@ namespace NerdMonkey.Demo
                     configure.OpenOnStartup = true;
                     configure.Icon = new Icon(@"wwwroot\favicon.ico");
                     configure.Image = configure.Icon.ToBitmap();
-                    configure.StartUpMessage = "Hello World";
                 });
     }
 }
