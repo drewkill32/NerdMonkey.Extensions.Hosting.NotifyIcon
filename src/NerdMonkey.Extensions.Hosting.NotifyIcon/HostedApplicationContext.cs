@@ -1,19 +1,22 @@
-﻿using System;
+﻿using Microsoft.Extensions.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Extensions.Hosting;
 
 namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
     public class HostedApplicationContext : ApplicationContext
     {
-        private readonly IEnumerable<IHost> _hosts;
+        private readonly IHost _host;
         private readonly INotifyIcon _notifyIcon;
+        private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private Task _hostTask;
 
         public HostedApplicationContext(IEnumerable<IHost> hosts)
         {
-            _hosts = hosts;
+            _host = new CompositeHost(hosts);
             _notifyIcon = IconBuilder.Instance.Build();
             _notifyIcon.Exit += NotifyIcon_Exit;
             Run();
@@ -22,34 +25,22 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private void NotifyIcon_Exit(object sender, EventArgs e)
         {
             _notifyIcon.Hide();
+            _tokenSource.Cancel();
+            _hostTask.GetAwaiter().GetResult();
             Application.Exit();
         }
 
         private void Run()
         {
             _notifyIcon.Show();
-            foreach (var host in _hosts)
-            {
-                new Thread(() => RunHost(host)).Start();
-            }
-        }
-
-        private void RunHost(IHost host)
-        {
-            try
-            {
-                host.Run();
-            }
-            catch (OperationCanceledException)
-            {
-                //Ignore
-            }
+            _hostTask = _host.StartAsync(_tokenSource.Token);
         }
 
         protected override void Dispose(bool disposing)
         {
             _notifyIcon.Exit -= NotifyIcon_Exit;
             _notifyIcon.Dispose();
+            _host.Dispose();
             base.Dispose(disposing);
         }
     }

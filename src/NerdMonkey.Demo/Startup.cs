@@ -28,7 +28,6 @@ namespace NerdMonkey.Demo
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            //services.AddSingleton<WeatherForecastService>();
             services.AddHttpClient<WeatherForecastService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5100");
