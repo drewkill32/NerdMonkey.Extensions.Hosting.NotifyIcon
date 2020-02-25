@@ -1,0 +1,28 @@
+name: Package to Nuget
+
+on:
+  release:
+    types: [published]
+    
+    
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.200-preview-014977
+    - name: Pack with dotnet
+      run: dotnet pack  -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/drewkill32/NerdMonkey.Extensions.Hosting.NotifyIcon/releases/tag/${{ github.event.release.tag_name }}"
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        # Artifact name
+        name: NerdMonkey.Extensions.Hosting.NotifyIcon
+        # Directory containing files to upload
+        path: .\src\NerdMonkey.Extensions.Hosting.NotifyIcon\bin\Release\NerdMonkey.Extensions.Hosting.NotifyIcon.${{ github.event.release.tag_name }}.nupkg
