@@ -4,7 +4,6 @@ on:
   release:
     types: [published]
     
-    
 
 jobs:
   build:
@@ -23,6 +22,11 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         # Artifact name
-        name: NerdMonkey.Extensions.Hosting.NotifyIcon
+        name: NerdMonkey.Extensions.Hosting.NotifyIcon.${{ github.event.release.tag_name }}.nupkg
         # Directory containing files to upload
         path: .\src\NerdMonkey.Extensions.Hosting.NotifyIcon\bin\Release\NerdMonkey.Extensions.Hosting.NotifyIcon.${{ github.event.release.tag_name }}.nupkg
+    - name: Action Release
+      uses: yakuhzi/action-release@v1
+      with:
+        # File to upload to the release
+        file: .\src\NerdMonkey.Extensions.Hosting.NotifyIcon\bin\Release\NerdMonkey.Extensions.Hosting.NotifyIcon.${{ github.event.release.tag_name }}.nupkg
