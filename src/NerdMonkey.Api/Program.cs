@@ -22,7 +22,12 @@ namespace NerdMonkey.Api
                 {
                     webBuilder.UseUrls("http://localhost:5100");
                     webBuilder.UseStartup<Startup>();
-                })
-                .UseNotifyIcon();
+                }).UseDefaultServiceProvider((context, options) => {
+                    if (context.HostingEnvironment.IsDevelopment())
+                    {
+                        options.ValidateOnBuild = true;
+                        options.ValidateScopes = true;
+                    }
+                });
     }
 }

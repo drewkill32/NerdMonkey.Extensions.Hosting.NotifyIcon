@@ -25,11 +25,13 @@ namespace NerdMonkey.Demo
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).UseNotifyIcon(configure =>
+                })
+            .UseDefaultServiceProvider((context,options) =>{ 
+                if (context.HostingEnvironment.IsDevelopment())
                 {
-                    configure.OpenOnStartup = true;
-                    configure.Icon = new Icon(@"wwwroot\favicon.ico");
-                    configure.Image = configure.Icon.ToBitmap();
+                    options.ValidateOnBuild = true;
+                    options.ValidateScopes = true;
+                }
                 });
     }
 }

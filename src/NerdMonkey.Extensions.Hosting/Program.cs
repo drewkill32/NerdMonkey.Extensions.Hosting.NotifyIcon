@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.Extensions.Hosting;
 using NerdMonkey.Extensions.Hosting.NotifyIcon;
 
 namespace NerdMonkey.App
@@ -17,9 +19,22 @@ namespace NerdMonkey.App
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var clientHost = Demo.Program.CreateHostBuilder(args).Build();
-            var apiHost = Api.Program.CreateHostBuilder(args).Build();
-            Application.Run(new HostedApplicationContext(new []{ clientHost, apiHost }));
+
+            var clientHost = Demo.Program.CreateHostBuilder(args)
+                .UseNotifyIcon(configure =>
+                {
+                    configure.OpenOnStartup = true;
+                    configure.Icon = new Icon(@"wwwroot\favicon.ico");
+                    configure.Image = configure.Icon.ToBitmap();
+                    configure.Url = "http://localhost:5000";
+                }).
+                Build();
+
+            var apiHost = Api.Program.CreateHostBuilder(args)
+                .UseNotifyIcon().Build();
+
+            Application.Run(new HostedApplicationContext(new []{clientHost,apiHost}));
+            
         }
 
     }

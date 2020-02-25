@@ -10,7 +10,6 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
     {
         private CancellationTokenRegistration _applicationStartedRegistration;
         private CancellationTokenRegistration _applicationStoppingRegistration;
-        private readonly ManualResetEvent _shutdownBlock = new ManualResetEvent(false);
         private readonly INotifyIcon _hostNotifyIcon;
 
         public NotifyIconLifetime(IHostEnvironment environment, IHostApplicationLifetime applicationLifetime, ILoggerFactory loggerFactory, INotifyIcon notifyIcon)
@@ -33,8 +32,7 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
                     ((NotifyIconLifetime)state).OnApplicationStopping();
                 },
                 this);
-            // systemd sends SIGTERM to stop the service.
-            AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+
             _hostNotifyIcon.Exit += HostNotifyIconOnExit;
             _hostNotifyIcon.Show();
             return Task.CompletedTask;
@@ -43,17 +41,6 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private void HostNotifyIconOnExit(object sender, EventArgs e)
         {
             ApplicationLifetime.StopApplication();
-        }
-
-        private void OnProcessExit(object sender, EventArgs e)
-        {
-            ApplicationLifetime.StopApplication();
-
-            _shutdownBlock.WaitOne();
-
-            // On Linux if the shutdown is triggered by SIGTERM then that's signaled with the 143 exit code.
-            // Suppress that since we shut down gracefully. https://github.com/aspnet/AspNetCore/issues/6526
-            System.Environment.ExitCode = 0;
         }
 
         private void OnApplicationStarted()
@@ -80,8 +67,6 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 
         public void Dispose()
         {
-            _shutdownBlock.Set();
-            AppDomain.CurrentDomain.ProcessExit -= OnProcessExit;
             _hostNotifyIcon.Exit -= HostNotifyIconOnExit;
             _hostNotifyIcon.Dispose();
             _applicationStartedRegistration.Dispose();
