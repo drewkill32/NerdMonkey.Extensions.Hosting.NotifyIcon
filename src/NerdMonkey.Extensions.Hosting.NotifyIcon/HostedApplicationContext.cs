@@ -14,6 +14,10 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
         private Task _hostTask;
 
+        /// <summary>
+        /// Application Context used for NotifyIcon.
+        /// </summary>
+        /// <param name="hosts"></param>
         public HostedApplicationContext(IEnumerable<IHost> hosts)
         {
             _host = new CompositeHost(hosts);

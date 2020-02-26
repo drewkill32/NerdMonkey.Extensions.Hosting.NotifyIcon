@@ -9,6 +9,11 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private readonly object _mutex = new object();
         private INotifyIcon _notifyIcon;
 
+
+        /// <summary>
+        /// Returns an <see cref="INotifyIcon"/>. . will return the same instance if build has already been called.
+        /// </summary>  
+        /// <returns></returns>
         public INotifyIcon Build()
         {
             lock (_mutex)
