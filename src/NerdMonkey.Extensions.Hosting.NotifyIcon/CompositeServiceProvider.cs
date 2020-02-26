@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
-    internal class CompositeServiceProvider:IServiceProvider
+    internal class CompositeServiceProvider:IServiceProvider, IDisposable
     {
         private readonly IServiceProvider[] _providers;
 
@@ -24,6 +24,14 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
                 } 
             }
             return null;
+        }
+
+        public void Dispose()
+        {
+            foreach (var provider in _providers)
+            {
+                (provider as IDisposable)?.Dispose();
+            }
         }
     }
 }

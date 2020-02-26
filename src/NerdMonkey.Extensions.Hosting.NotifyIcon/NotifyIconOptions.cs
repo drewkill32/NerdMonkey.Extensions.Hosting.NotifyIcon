@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class NotifyIconOptions
     {
         private string _startUpMessage;
@@ -10,8 +13,14 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private string _urlMenuTitle;
         private bool _urlMenuTitleSet;
         private string _url;
+        /// <summary>
+        /// Icon used in System Tray
+        /// </summary>
         public Icon Icon { get; set; }
 
+        /// <summary>
+        /// Application Title
+        /// </summary>
         public string Title
         {
             get
@@ -26,10 +35,19 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
             set => _title = value;
         }
 
+        /// <summary>
+        /// Display a message on startup
+        /// </summary>
         public bool DisplayStartupMessage { get; set; }
 
+        /// <summary>
+        /// Opens the default web browser on startup
+        /// </summary>
         public bool OpenOnStartup { get; set; }
 
+        /// <summary>
+        /// Message to be displayed on startup. Default: Starting <see cref="Title"/>
+        /// </summary>
         public string StartUpMessage
         {
             get
@@ -44,6 +62,9 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
             set => _startUpMessage = value;
         }
 
+        /// <summary>
+        /// Url of the web app. Default: http://localhost:5000
+        /// </summary>
         public string Url
         {
             get => _url;
@@ -57,6 +78,9 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
             }
         }
 
+        /// <summary>
+        /// Test to be displayed on 
+        /// </summary>
         public string UrlMenuTitle
         {
             get => _urlMenuTitle;
@@ -67,6 +91,9 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
             }
         }
 
+        /// <summary>
+        /// Image used in Menu
+        /// </summary>
         public Image Image { get; set; }
 
         public NotifyIconOptions()

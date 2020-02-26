@@ -12,8 +12,11 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private readonly IHost _host;
         private readonly INotifyIcon _notifyIcon;
         private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
-        private Task _hostTask;
 
+        /// <summary>
+        /// Application Context used for NotifyIcon.
+        /// </summary>
+        /// <param name="hosts"></param>
         public HostedApplicationContext(IEnumerable<IHost> hosts)
         {
             _host = new CompositeHost(hosts);
@@ -25,15 +28,13 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private void NotifyIcon_Exit(object sender, EventArgs e)
         {
             _notifyIcon.Hide();
-            _tokenSource.Cancel();
-            _hostTask.GetAwaiter().GetResult();
             Application.Exit();
         }
 
         private void Run()
         {
             _notifyIcon.Show();
-            _hostTask = _host.StartAsync(_tokenSource.Token);
+            _host.StartAsync(_tokenSource.Token).GetAwaiter().GetResult();
         }
 
         protected override void Dispose(bool disposing)

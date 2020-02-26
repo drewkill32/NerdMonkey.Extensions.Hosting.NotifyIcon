@@ -7,13 +7,14 @@
     <ApplicationIcon />
     <StartupObject />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <PackageIconUrl />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/drewkill32/NerdMonkey.Extensions.Hosting.NotifyIcon</RepositoryUrl>
     <PackageProjectUrl>https://github.com/drewkill32/NerdMonkey.Extensions.Hosting.NotifyIcon</PackageProjectUrl>
     <Description>Allows Microsoft.Hosting to be done with a System.Windows.Forms.NotifyIcon Lifetime</Description>
     <Copyright>2020 Drew Killion</Copyright>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
