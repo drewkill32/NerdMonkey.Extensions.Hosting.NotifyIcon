@@ -21,7 +21,7 @@ namespace Microsoft.Extensions.Hosting
 
             builder.ConfigureServices((hostContext, service) =>
             {
-                service.AddSingleton<IHostLifetime, NotifyIconLifetime>();
+                service.AddSingleton<IHostLifetime, FormApplicationLifetime>();
                 IconBuilder.Instance.ConfigureNotifyIcon(options => configure(hostContext, options));
                 service.Configure<NotifyIconOptions>(options => configure(hostContext, options));
                 service.AddSingleton(p => IconBuilder.Instance.Build());

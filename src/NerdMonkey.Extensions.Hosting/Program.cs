@@ -32,7 +32,7 @@ namespace NerdMonkey.App
 
             var apiHost = Api.Program.CreateHostBuilder(args)
                 .UseNotifyIcon().Build();
-
+           
             Application.Run(new HostedApplicationContext(new []{clientHost,apiHost}));
             
         }
