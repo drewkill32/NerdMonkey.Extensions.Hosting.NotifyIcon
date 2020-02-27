@@ -8,7 +8,6 @@ namespace NerdMonkey.App
 {
     internal static class Program
     {
-        public const string APPLICATION_NAME = "HowlerMonkley";
 
         /// <summary>
         ///  The main entry point for the application.
@@ -27,6 +26,14 @@ namespace NerdMonkey.App
                     configure.Icon = new Icon(@"wwwroot\favicon.ico");
                     configure.Image = configure.Icon.ToBitmap();
                     configure.Url = "http://localhost:5000";
+                    configure.BuildMenu(m =>
+                    {
+                        var testMenu = new ToolStripMenuItem("test");
+                        testMenu.Click += (sender, eventArgs) => { MessageBox.Show("Test"); };
+                        // default menu items are already created. Use Insert to appear at the top of the menu.
+                        // m.Items.Clear() can be used to clear the menu if you want to replace the menu entirely.
+                        m.Items.Insert(0,testMenu);
+                    });
                 }).
                 Build();
 
