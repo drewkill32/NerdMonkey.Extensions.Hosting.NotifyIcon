@@ -20,7 +20,7 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         public HostedApplicationContext(IEnumerable<IHost> hosts)
         {
             _host = new CompositeHost(hosts);
-            _notifyIcon = IconBuilder.Instance.Build();
+            _notifyIcon = NotifyIcon.Builder.Build();
             _notifyIcon.Exit += NotifyIcon_Exit;
             Run();
         }

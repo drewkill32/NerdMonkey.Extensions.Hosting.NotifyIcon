@@ -7,7 +7,7 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
     {
         private readonly List<Action<NotifyIconOptions>> _configureNotifyTrayConfigActions = new List<Action<NotifyIconOptions>>();
         private readonly object _mutex = new object();
-        private INotifyIcon _notifyIcon;
+        private bool _isBuilt;
 
 
         /// <summary>
@@ -16,21 +16,19 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         /// <returns></returns>
         public INotifyIcon Build()
         {
-            lock (_mutex)
+            if (_isBuilt)
             {
-                if (_notifyIcon == null)
-                {
-                    var options = new NotifyIconOptions();
-                    foreach (var configAction in _configureNotifyTrayConfigActions)
-                    {
-                        configAction(options);
-                    }
-
-                    _notifyIcon = new HostNotifyIcon(options);
-                }
+                throw new InvalidOperationException("Build can only be called once.");
             }
 
-            return _notifyIcon;
+            var options = new NotifyIconOptions();
+            foreach (var configAction in _configureNotifyTrayConfigActions)
+            {
+                configAction(options);
+            }
+            NotifyIcon.InternalNotifyIcon = new HostNotifyIcon(options);
+            _isBuilt = true;
+            return NotifyIcon.InternalNotifyIcon;
         }
 
         public INotifyIconBuilder ConfigureNotifyIcon(Action<NotifyIconOptions> configure)

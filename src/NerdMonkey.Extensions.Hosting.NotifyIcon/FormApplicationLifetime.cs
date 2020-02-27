@@ -15,7 +15,7 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private CancellationTokenRegistration _applicationStoppingRegistration;
         private readonly ManualResetEvent _shutdownBlock = new ManualResetEvent(false);
 
-        public FormApplicationLifetime(IHostEnvironment environment, IHostApplicationLifetime applicationLifetime, ILoggerFactory loggerFactory, INotifyIcon notifyIcon)
+        public FormApplicationLifetime(IHostEnvironment environment, IHostApplicationLifetime applicationLifetime, ILoggerFactory loggerFactory)
         {
             Environment = environment ?? throw new ArgumentNullException(nameof(environment));
             HostApplicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
