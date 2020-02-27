@@ -42,6 +42,7 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
             _notifyIcon.ContextMenuStrip.Items.Add(_openUrlMenuItem);
             _notifyIcon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
             _notifyIcon.ContextMenuStrip.Items.Add(_exitMenuItem);
+            _options.ConfigureMenu(_notifyIcon.ContextMenuStrip);
         }
 
         private void NotifyIconOnDoubleClick(object sender, EventArgs e)

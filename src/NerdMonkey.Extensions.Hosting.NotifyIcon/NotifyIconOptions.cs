@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace NerdMonkey.Extensions.Hosting.NotifyIcon
 {
@@ -13,6 +15,7 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         private string _urlMenuTitle;
         private bool _urlMenuTitleSet;
         private string _url;
+        internal Action<ContextMenuStrip> ConfigureMenu { get; private set; }
         /// <summary>
         /// Icon used in System Tray
         /// </summary>
@@ -92,6 +95,14 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
         }
 
         /// <summary>
+        /// Action to add menu items to the context menu
+        /// </summary>
+        public void BuildMenu(Action<ContextMenuStrip> configure)
+        {
+            ConfigureMenu = configure ?? throw new ArgumentNullException(nameof(configure));
+        }
+
+        /// <summary>
         /// Image used in Menu
         /// </summary>
         public Image Image { get; set; }
@@ -105,6 +116,7 @@ namespace NerdMonkey.Extensions.Hosting.NotifyIcon
             Icon = Resources.AppIcon;
             Image = Icon.ToBitmap();
             Url = "http://localhost:5000";
+            ConfigureMenu = m => { };
         }
     }
 }
